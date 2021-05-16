@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
-    <StartupObject>Kattis.ShatteredCake</StartupObject>
+    <StartupObject>Kattis.JackOLanternJuxtaposition</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
