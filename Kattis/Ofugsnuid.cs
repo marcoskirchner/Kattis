@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Kattis.IO;
+using System;
+using System.Text;
 
 namespace Kattis
 {
@@ -6,17 +8,22 @@ namespace Kattis
     {
         static void Main(string[] args)
         {
-            var n = int.Parse(Console.ReadLine());
+            var reader = new InputReader(Console.In);
+
+            var n = reader.NextInt();
             var list = new int[n];
             for (int i = 0; i < n; i++)
             {
-                list[i] = int.Parse(Console.ReadLine());
+                list[i] = reader.NextInt();
             }
 
+            var sb = new StringBuilder(n * 5);
             for (int i = n - 1; i >= 0; i--)
             {
-                Console.WriteLine(list[i]);
+                sb.Append(list[i]);
+                sb.AppendLine();
             }
+            Console.Write(sb.ToString());
         }
     }
 }
