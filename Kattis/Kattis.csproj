@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
-    <StartupObject>Kattis.HelpAPhd</StartupObject>
+    <StartupObject>Kattis.Sequences</StartupObject>
     <LangVersion>7.0</LangVersion>
   </PropertyGroup>
 
