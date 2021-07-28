@@ -4,12 +4,16 @@ namespace Kattis
 {
 
     /*
-    Fifth attempt at 0-1 Sequences, using recursion.
+    Sixth attempt at 0-1 Sequences, using smarter logic.
 
-    We are returning long the from function, but passing in int when doing the recursive calls. Duh! Let's pass a long in.
+    When thinking about improving the recursive version, the outset didn't look that great.
+    A "mere" input with length of about 300 chars took a couple seconds to process.
+    The problem states we can have a input of 500.000 chars. That will take forever. And our allowance is only 1s.
+
+    So let's try doing a single pass over the input string and no recursion at all.
     
-    Man, have we improved! We now pass 14 tests and fail on 15th. And this time we fail with a Time Limit Exceeded.
-    So we are definitely on the right track. We just have to make this code go a lotta faster!
+    We still got the first 14 tests right and failed on 15th. We are back at a Wrong Asnswer again.
+    But we got it wrong in 0.03s. Talk about failing fast. Isn't that what Agile is all about?
      */
 
     public class Sequences
@@ -22,18 +26,17 @@ namespace Kattis
 
         private static long Inversions(string input)
         {
-            return Inversions(input, 0, 0, 0) % 1000000007;
-        }
-
-        private static long Inversions(string input, int pos, long swaps, int ones)
-        {
-            for (int i = pos; i < input.Length; i++)
+            long swaps = 0;
+            long ones = 0;
+            var seqs = 1;
+            for (int i = 0; i < input.Length; i++)
             {
                 if (input[i] == '?')
                 {
-                    return
-                        Inversions(input, i + 1, swaps + ones, ones)
-                        + Inversions(input, i + 1, swaps, ones + 1);
+                    swaps = swaps * 2 + ones;
+                    ones = ones * 2 + seqs;
+
+                    seqs *= 2;
                 }
                 else if (input[i] == '0')
                 {
@@ -41,10 +44,10 @@ namespace Kattis
                 }
                 else
                 {
-                    ones++;
+                    ones += seqs;
                 }
             }
-            return swaps;
+            return swaps % 1000000007;
         }
     }
 }
