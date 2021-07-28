@@ -1,23 +1,20 @@
 ﻿using System;
-using System.Linq;
-using System.Numerics;
-using System.Runtime.InteropServices;
 
 namespace Kattis
 {
 
     /*
-    Seventh attempt at 0-1 Sequences, using smarter logic and BigIntegers.
+    Eighth attempt at 0-1 Sequences, using smarter logic and a lot of modules.
 
-    Now we are overflowing a long. That's a big number but still. Let's bring out those heavy BigInteger guns.
+    We're back at using longs, but running modulos after processing each input char.
 
-    So let's try doing a single pass over the input string and no recursion at all.
-    
-    We are back at Time Limit Exceeded on that 15th test again. Seems like BigInteger is slow.
+    This time we got it right on the 41 tests and a runtime of 0.04s.
      */
 
     public class Sequences
     {
+        const int MODULE = 1000000007;
+
         static void Main(string[] args)
         {
             var input = Console.ReadLine();
@@ -26,9 +23,9 @@ namespace Kattis
 
         private static long Inversions(string input)
         {
-            BigInteger swaps = 0;
-            BigInteger ones = 0;
-            BigInteger seqs = 1;
+            long swaps = 0;
+            long ones = 0;
+            long seqs = 1;
             for (int i = 0; i < input.Length; i++)
             {
                 if (input[i] == '?')
@@ -46,13 +43,21 @@ namespace Kattis
                 {
                     ones += seqs;
                 }
-            }
-            if (swaps > 1000000007)
-            {
-                swaps %= 1000000007;
-            }
 
-            return (long)swaps;
+                if (swaps >= MODULE)
+                {
+                    swaps %= MODULE;
+                }
+                if (ones >= MODULE)
+                {
+                    ones %= MODULE;
+                }
+                if (seqs >= MODULE)
+                {
+                    seqs %= MODULE;
+                }
+            }
+            return swaps;
         }
     }
 }
